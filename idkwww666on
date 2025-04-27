@@ -1,0 +1,169 @@
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local AutoStompFrame = Instance.new("Frame")
+local AutoStompLabel = Instance.new("TextLabel")
+local AutoStompButton = Instance.new("TextButton")
+local RandomTPFrame = Instance.new("Frame")
+local RandomTPLabel = Instance.new("TextLabel")
+local RandomTPButton = Instance.new("TextButton")
+ScreenGui.ResetOnSpawn = false 
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "Kama666on"
+
+MainFrame.Size = UDim2.new(0, 350, 0, 250)
+MainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+Title.Size = UDim2.new(1, 0, 0.15, 0)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextSize = 20
+Title.Font = Enum.Font.SourceSansBold
+Title.Parent = MainFrame
+AutoStompFrame.Size = UDim2.new(1, -20, 0.35, -10)
+AutoStompFrame.Position = UDim2.new(0, 10, 0.15, 5)
+AutoStompFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+AutoStompFrame.Parent = MainFrame
+AutoStompLabel.Size = UDim2.new(1, 0, 0.3, 0)
+AutoStompLabel.Position = UDim2.new(0, 5, 0, 0)
+AutoStompLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+AutoStompLabel.TextSize = 18
+AutoStompLabel.Font = Enum.Font.SourceSans
+AutoStompLabel.BackgroundTransparency = 1
+AutoStompLabel.Parent = AutoStompFrame
+AutoStompButton.Size = UDim2.new(0.3, -5, 0.3, 0)
+AutoStompButton.Position = UDim2.new(0.38, 0, 0.50, 0)
+AutoStompButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+AutoStompButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+AutoStompButton.TextSize = 16
+AutoStompButton.Font = Enum.Font.SourceSansBold
+AutoStompButton.Parent = AutoStompFrame
+AutoStompLabel.Text = "Auto Stomp"
+RandomTPFrame.Size = UDim2.new(1, -20, 0.35, -10)
+RandomTPFrame.Position = UDim2.new(0, 10, 0.55, 5)
+RandomTPFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+RandomTPFrame.Parent = MainFrame
+RandomTPLabel.Size = UDim2.new(0.6, 0, 1, 0)
+RandomTPLabel.Position = UDim2.new(0, 5, 0, 0)
+RandomTPLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+RandomTPLabel.TextSize = 18
+RandomTPLabel.Font = Enum.Font.SourceSans
+RandomTPLabel.BackgroundTransparency = 1
+RandomTPLabel.Parent = RandomTPFrame
+RandomTPLabel.Text = "Random TP"
+RandomTPButton.Size = UDim2.new(0.3, 0, 0.8, 0)
+RandomTPButton.Position = UDim2.new(0.65, 0, 0.1, 0)
+RandomTPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+RandomTPButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+RandomTPButton.TextSize = 16
+RandomTPButton.Font = Enum.Font.SourceSansBold
+RandomTPButton.Parent = RandomTPFrame
+local autoStompEnabled = false
+if game.PlaceId == 2788229376 then
+    MainEvent = game:GetService('ReplicatedStorage'):WaitForChild('MainEvent')
+end
+
+local Players = game:GetService("Players")
+local Client = Players.LocalPlayer
+local AntiEffect = 34244088
+local SafePosition = Vector3.new(0, 100, 0)
+
+RandomTPButton.Text = "OFF"
+
+AutoStompButton.MouseButton1Click:Connect(function()
+    autoStompEnabled = not autoStompEnabled
+    AutoStompButton.Text = autoStompEnabled and "ON" or "OFF"
+
+    if autoStompEnabled then
+        task.spawn(function()
+            while autoStompEnabled do
+                for _, Player in ipairs(Players:GetPlayers()) do
+                    if Player ~= Client and Player.Character and Player:IsInGroup(AntiEffect) == false then
+                        local BodyEffects = Player.Character:FindFirstChild("BodyEffects")
+                        if BodyEffects and BodyEffects:FindFirstChild("K.O") and BodyEffects["K.O"].Value then
+                            local TargetPosition = Player.Character:FindFirstChild("UpperTorso")
+                            if TargetPosition then
+                                Client.Character:MoveTo(TargetPosition.Position)
+                                task.wait(0.3)
+                                MainEvent:FireServer("Stomp")
+                                task.wait(0.2)
+                                Client.Character:MoveTo(SafePosition)
+                            end
+                        end
+                    end
+                end
+                task.wait(0.5)
+            end
+        end)
+    end
+end)
+
+Title.Text = ".gg/sigmabasados"
+local RunService = game:GetService("RunService")
+local maxRange = 500
+local teleporting = false
+local function teleportRandomly()
+    local player = game.Players.LocalPlayer
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local newPosition = Vector3.new(
+            math.random(-maxRange, maxRange),
+            math.random(50, 150),
+            math.random(-maxRange, maxRange)
+        )
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(newPosition)
+    end
+end
+
+RandomTPButton.MouseButton1Click:Connect(function()
+    teleporting = not teleporting
+    RandomTPButton.Text = teleporting and "ON" or "OFF"
+
+    if teleporting then
+        task.spawn(function()
+            while teleporting do
+                teleportRandomly()
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+task.spawn(function()
+    while wait() do
+        pcall(function()
+            local character = game:GetService("Players").LocalPlayer.Character
+            if character and character:FindFirstChild("BodyEffects") and character:FindFirstChild("BodyEffects"):FindFirstChild("K.O").Value == true then
+                for i, v in pairs(character:GetChildren()) do
+                    if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+                        v:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    if not ScreenGui.Parent then
+        ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    end
+end)
+
+local function onCharacterDied()
+    local player = game.Players.LocalPlayer
+    player:LoadCharacter() 
+end
+
+if Client.Character then
+    Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
+end
+
+AutoStompButton.Text = "OFF"
+
+Client.CharacterAdded:Connect(function()
+    Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
+end)
