@@ -1,98 +1,101 @@
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local AutoStompFrame = Instance.new("Frame")
-local AutoStompLabel = Instance.new("TextLabel")
-local AutoStompButton = Instance.new("TextButton")
-local RandomTPFrame = Instance.new("Frame")
-local RandomTPLabel = Instance.new("TextLabel")
-local RandomTPButton = Instance.new("TextButton")
-ScreenGui.ResetOnSpawn = false 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.Name = "Kama666on"
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local Client = Players.LocalPlayer
+local ID = 34244088
+local SafePosition = Vector3.new(0, 100, 0)
+local MainEvent = game:GetService("ReplicatedStorage"):WaitForChild("MainEvent")
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 
-MainFrame.Size = UDim2.new(0, 350, 0, 250)
-MainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
-MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-MainFrame.BorderSizePixel = 0
-MainFrame.Active = true
-MainFrame.Draggable = true
-MainFrame.Parent = ScreenGui
-Title.Size = UDim2.new(1, 0, 0.15, 0)
-Title.Position = UDim2.new(0, 0, 0, 0)
-Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0,300,0,400)
+MainFrame.Position = UDim2.new(0.5,-150,0.5,-200)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+local UICornerMain = Instance.new("UICorner", MainFrame)
+UICornerMain.CornerRadius = UDim.new(0,10)
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1,0,0.1,0)
+Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Title.Text = "KAMA PRIV"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Font = Enum.Font.GothamBold
 Title.TextSize = 20
-Title.Font = Enum.Font.SourceSansBold
-Title.Parent = MainFrame
-AutoStompFrame.Size = UDim2.new(1, -20, 0.35, -10)
-AutoStompFrame.Position = UDim2.new(0, 10, 0.15, 5)
-AutoStompFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-AutoStompFrame.Parent = MainFrame
-AutoStompLabel.Size = UDim2.new(1, 0, 0.3, 0)
-AutoStompLabel.Position = UDim2.new(0, 5, 0, 0)
-AutoStompLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-AutoStompLabel.TextSize = 18
-AutoStompLabel.Font = Enum.Font.SourceSans
-AutoStompLabel.BackgroundTransparency = 1
-AutoStompLabel.Parent = AutoStompFrame
-AutoStompButton.Size = UDim2.new(0.3, -5, 0.3, 0)
-AutoStompButton.Position = UDim2.new(0.38, 0, 0.50, 0)
-AutoStompButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-AutoStompButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-AutoStompButton.TextSize = 16
-AutoStompButton.Font = Enum.Font.SourceSansBold
-AutoStompButton.Parent = AutoStompFrame
-AutoStompLabel.Text = "Auto Stomp"
-RandomTPFrame.Size = UDim2.new(1, -20, 0.35, -10)
-RandomTPFrame.Position = UDim2.new(0, 10, 0.55, 5)
-RandomTPFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-RandomTPFrame.Parent = MainFrame
-RandomTPLabel.Size = UDim2.new(0.6, 0, 1, 0)
-RandomTPLabel.Position = UDim2.new(0, 5, 0, 0)
-RandomTPLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-RandomTPLabel.TextSize = 18
-RandomTPLabel.Font = Enum.Font.SourceSans
-RandomTPLabel.BackgroundTransparency = 1
-RandomTPLabel.Parent = RandomTPFrame
-RandomTPLabel.Text = "Random TP"
-RandomTPButton.Size = UDim2.new(0.3, 0, 0.8, 0)
-RandomTPButton.Position = UDim2.new(0.65, 0, 0.1, 0)
-RandomTPButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-RandomTPButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-RandomTPButton.TextSize = 16
-RandomTPButton.Font = Enum.Font.SourceSansBold
-RandomTPButton.Parent = RandomTPFrame
-local autoStompEnabled = false
-if game.PlaceId == 2788229376 then
-    MainEvent = game:GetService('ReplicatedStorage'):WaitForChild('MainEvent')
+local UICornerTitle = Instance.new("UICorner", Title)
+UICornerTitle.CornerRadius = UDim.new(0,10)
+
+local function createButton(txt, posy)
+    local b = Instance.new("TextButton", MainFrame)
+    b.Size = UDim2.new(0.8,0,0.1,0)
+    b.Position = UDim2.new(0.1,0,posy,0)
+    b.BackgroundColor3 = Color3.fromRGB(50,50,50)
+    b.TextColor3 = Color3.fromRGB(255,255,255)
+    b.Font = Enum.Font.Gotham
+    b.TextSize = 16
+    b.Text = txt
+    local corner = Instance.new("UICorner", b)
+    corner.CornerRadius = UDim.new(0,8)
+    return b
 end
 
-local Players = game:GetService("Players")
-local Client = Players.LocalPlayer
-local AntiEffect = 34244088
-local SafePosition = Vector3.new(0, 100, 0)
+local AutoStompButton = createButton("Auto Stomp: OFF", 0.15)
+local RandomTPButton = createButton("Random TP: OFF", 0.3)
+local LowGFXButton = createButton("LOWGFX: OFF", 0.45)
 
-RandomTPButton.Text = "OFF"
+local SliderFrame = Instance.new("Frame", MainFrame)
+SliderFrame.Size = UDim2.new(0.8,0,0.15,0)
+SliderFrame.Position = UDim2.new(0.1,0,0.6,0)
+SliderFrame.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", SliderFrame).CornerRadius = UDim.new(0,8)
+
+local SliderTrack = Instance.new("Frame", SliderFrame)
+SliderTrack.Size = UDim2.new(1,0,0.3,0)
+SliderTrack.Position = UDim2.new(0,0,0.4,0)
+SliderTrack.BackgroundColor3 = Color3.fromRGB(30,30,30)
+Instance.new("UICorner", SliderTrack).CornerRadius = UDim.new(1,0)
+
+local SliderButton = Instance.new("TextButton", SliderTrack)
+SliderButton.Size = UDim2.new(0,20,0,20)
+SliderButton.Position = UDim2.new(0,0,-0.5,10)
+SliderButton.BackgroundColor3 = Color3.fromRGB(70,70,70)
+SliderButton.Text = ""
+Instance.new("UICorner", SliderButton).CornerRadius = UDim.new(1,0)
+
+local SliderLabel = Instance.new("TextLabel", SliderFrame)
+SliderLabel.Size = UDim2.new(1,0,0.3,0)
+SliderLabel.Position = UDim2.new(0,0,0,0)
+SliderLabel.BackgroundTransparency = 1
+SliderLabel.Text = "TP Distance: 500"
+SliderLabel.TextColor3 = Color3.fromRGB(255,255,255)
+SliderLabel.Font = Enum.Font.Gotham
+SliderLabel.TextSize = 14
+
+local autoStompEnabled = false
+local teleporting = false
+local lowGFXEnabled = false
+local maxRange = 500
+local isStomping = false
+local blackScreen
 
 AutoStompButton.MouseButton1Click:Connect(function()
     autoStompEnabled = not autoStompEnabled
-    AutoStompButton.Text = autoStompEnabled and "ON" or "OFF"
-
+    AutoStompButton.Text = "Auto Stomp: " .. (autoStompEnabled and "ON" or "OFF")
     if autoStompEnabled then
         task.spawn(function()
             while autoStompEnabled do
-                for _, Player in ipairs(Players:GetPlayers()) do
-                    if Player ~= Client and Player.Character and Player:IsInGroup(AntiEffect) == false then
-                        local BodyEffects = Player.Character:FindFirstChild("BodyEffects")
-                        if BodyEffects and BodyEffects:FindFirstChild("K.O") and BodyEffects["K.O"].Value then
-                            local TargetPosition = Player.Character:FindFirstChild("UpperTorso")
-                            if TargetPosition then
-                                Client.Character:MoveTo(TargetPosition.Position)
+                for _,p in ipairs(Players:GetPlayers()) do
+                    if p~=Client and p.Character and not p:IsInGroup(ID) then
+                        local be = p.Character:FindFirstChild("BodyEffects")
+                        if be and be:FindFirstChild("K.O") and be["K.O"].Value then
+                            local target = p.Character:FindFirstChild("UpperTorso")
+                            if target then
+                                isStomping = true
+                                Client.Character:MoveTo(target.Position)
                                 task.wait(0.3)
                                 MainEvent:FireServer("Stomp")
                                 task.wait(0.2)
                                 Client.Character:MoveTo(SafePosition)
+                                isStomping = false
                             end
                         end
                     end
@@ -103,50 +106,120 @@ AutoStompButton.MouseButton1Click:Connect(function()
     end
 end)
 
-Title.Text = ".gg/sigmabasados"
-local RunService = game:GetService("RunService")
-local maxRange = 500
-local teleporting = false
+RandomTPButton.MouseButton1Click:Connect(function()
+	teleporting = not teleporting
+	RandomTPButton.Text = "Random TP: " .. (teleporting and "ON" or "OFF")
+end)
+
+LowGFXButton.MouseButton1Click:Connect(function()
+	lowGFXEnabled = not lowGFXEnabled
+	LowGFXButton.Text = "LOWGFX: " .. (lowGFXEnabled and "ON" or "OFF")
+	if lowGFXEnabled then
+		if not blackScreen then
+			blackScreen = Instance.new("Frame", ScreenGui)
+			blackScreen.Size = UDim2.new(1,0,1,0)
+			blackScreen.BackgroundColor3 = Color3.fromRGB(0,0,0)
+			blackScreen.ZIndex = 0
+		end
+		blackScreen.Visible = true
+	else
+		if blackScreen then blackScreen.Visible = false end
+	end
+end)
+
 local function teleportRandomly()
-    local player = game.Players.LocalPlayer
-    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        local newPosition = Vector3.new(
-            math.random(-maxRange, maxRange),
-            math.random(50, 150),
-            math.random(-maxRange, maxRange)
-        )
-        player.Character.HumanoidRootPart.CFrame = CFrame.new(newPosition)
-    end
+	if Client.Character and Client.Character:FindFirstChild("HumanoidRootPart") then
+		local pos = Vector3.new(math.random(-maxRange,maxRange),math.random(50,150),math.random(-maxRange,maxRange))
+		Client.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
+	end
 end
 
-RandomTPButton.MouseButton1Click:Connect(function()
-    teleporting = not teleporting
-    RandomTPButton.Text = teleporting and "ON" or "OFF"
-
-    if teleporting then
-        task.spawn(function()
-            while teleporting do
-                teleportRandomly()
-                task.wait(0.1)
-            end
-        end)
-    end
-end)
 task.spawn(function()
-    while wait() do
-        pcall(function()
-            local character = game:GetService("Players").LocalPlayer.Character
-            if character and character:FindFirstChild("BodyEffects") and character:FindFirstChild("BodyEffects"):FindFirstChild("K.O").Value == true then
-                for i, v in pairs(character:GetChildren()) do
-                    if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
-                        v:Destroy()
-                    end
-                end
-            end
-        end)
-    end
+	while task.wait(0.1) do
+		if teleporting and not isStomping then
+			teleportRandomly()
+		end
+	end
 end)
 
+-- mover UI
+local draggingUI,dragInput,dragStart,startPos
+
+Title.InputBegan:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1 then
+		draggingUI=true
+		dragStart=input.Position
+		startPos=MainFrame.Position
+	end
+end)
+
+Title.InputEnded:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1 then
+		draggingUI=false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if draggingUI and input.UserInputType==Enum.UserInputType.MouseMovement then
+		local delta=input.Position-dragStart
+		MainFrame.Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+delta.X,startPos.Y.Scale,startPos.Y.Offset+delta.Y)
+	end
+end)
+
+-- slider
+local dragging=false
+SliderButton.InputBegan:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1 then
+		dragging=true
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1 then
+		dragging=false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType==Enum.UserInputType.MouseMovement then
+		local pos=input.Position.X-SliderTrack.AbsolutePosition.X
+		pos=math.clamp(pos,0,SliderTrack.AbsoluteSize.X)
+		SliderButton.Position=UDim2.new(0,pos,0,0)
+		maxRange=math.floor((pos/SliderTrack.AbsoluteSize.X)*1000)
+		SliderLabel.Text="TP Distance: "..maxRange
+	end
+end)
+
+-- AntiSit
+task.spawn(function()
+	while task.wait(0.2) do
+		if Client.Character and Client.Character:FindFirstChild("Humanoid") then
+			local h=Client.Character.Humanoid
+			if h.Sit then
+				h.Sit=false
+				h.SeatPart=nil
+			end
+		end
+	end
+end)
+
+-- AntiStomp
+task.spawn(function()
+	while task.wait() do
+		pcall(function()
+			local char=Client.Character
+			if char and char:FindFirstChild("BodyEffects") and char.BodyEffects:FindFirstChild("K.O") and char.BodyEffects["K.O"].Value==true then
+				for _,v in pairs(char:GetChildren()) do
+					if v:IsA("BasePart") and v.Name~="HumanoidRootPart" then
+						v:Destroy()
+					end
+				end
+			end
+		end)
+	end
+end)
+
+-- Autorespawn
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
     if not ScreenGui.Parent then
         ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -154,16 +227,14 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
 end)
 
 local function onCharacterDied()
-    local player = game.Players.LocalPlayer
-    player:LoadCharacter() 
+    local p=game.Players.LocalPlayer
+    p:LoadCharacter()
 end
 
 if Client.Character then
-    Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
+	Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
 end
 
-AutoStompButton.Text = "OFF"
-
 Client.CharacterAdded:Connect(function()
-    Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
+	Client.Character:WaitForChild("Humanoid").Died:Connect(onCharacterDied)
 end)
