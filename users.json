@@ -9,7 +9,7 @@
     "Kama": {
         "IP": "179.6.170.24",
         "Advertencias": 1,
-        "FakeBlackList": 1,
+        "FakeBlackList": 0,
         "Key": "Ohhh",
         "Blacklist": 0
     }
