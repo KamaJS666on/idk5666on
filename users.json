@@ -6,6 +6,13 @@
         "Key": "soygayyyy1234",
         "Blacklist": 0
     },
+    "Tron": {
+        "IP": "104.174.125.138",
+        "Advertencias": 0,
+        "FakeBlackList": 0,
+        "Key": "tron12345",
+        "Blacklist": 0
+    },
     "Kama": {
         "IP": "179.6.170.24",
         "Advertencias": 1,
