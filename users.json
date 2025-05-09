@@ -8,7 +8,7 @@
     },
     "Tron": {
         "IP": "136.52.100.64",
-        "Advertencias": 1,
+        "Advertencias": 0,
         "FakeBlackList": 0,
         "Key": "tron12345",
         "Blacklist": 0
