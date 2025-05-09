@@ -15,9 +15,16 @@
     },
     "Kama": {
         "IP": "179.6.170.24",
-        "Advertencias": 1,
+        "Advertencias": 0,
         "FakeBlackList": 0,
         "Key": "Ohhh",
+        "Blacklist": 0
+    },
+    "Nacho": {
+        "IP": "179.60.64.181",
+        "Advertencias": 0,
+        "FakeBlackList": 1,
+        "Key": "megustaelculodecande1234",
         "Blacklist": 0
     }
 }
