@@ -2,11 +2,13 @@
     "Pepo": {
         "IP": "186.104.59.30",
         "Advertencias": 0,
+        "Key": "0",
         "Blacklist": 0
     },
     "Kama": {
         "IP": "179.6.170.24",
         "Advertencias": 0,
+        "Key": "Ohhh",
         "Blacklist": 0
     }
 }
