@@ -23,7 +23,7 @@
     "Nacho": {
         "IP": "179.60.64.181",
         "Advertencias": 0,
-        "FakeBlackList": 0,
+        "FakeBlackList": 1,
         "Key": "megustaelculodecande1234",
         "Blacklist": 0
     }
